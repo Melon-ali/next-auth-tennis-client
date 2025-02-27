@@ -17,6 +17,12 @@ export default function LoginPage() {
     e.preventDefault();
     console.log("Login data:", formData);
     // Handle authentication logic here
+    signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirect: true,
+      callbackUrl: "http://localhost:3000/profile"
+    })
   };
 
   const handleSocialLogin = (provider: string) => {
@@ -24,7 +30,11 @@ export default function LoginPage() {
     // Implement NextAuth or other OAuth logic here
     if(provider == "github"){
       signIn('github', {
-        callbackUrl: "http://localhost:3000/members"
+        callbackUrl: "http://localhost:3000/profile"
+      })
+    } else if (provider == "google"){
+      signIn('google', {
+        callbackUrl: "http://localhost:3000/profile"
       })
     }
   };
